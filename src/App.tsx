@@ -1,24 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useMemo, useState } from "react";
+import { List } from "./List";
+
+export interface Pokemons {
+  name: string;
+}
+
+const INITIAL_STATE = ["Bulbasaur", "Charmander", "Squirtle"];
 
 function App() {
+  const [pokemons, setPokemons] = useState(INITIAL_STATE);
+
+  const [input, setInput] = useState("");
+
+  const QuantidadePokemons = useMemo(() => {
+    for (let index = 0; index < 3000000000; index++) {}
+    console.log("QuantidadePokemons......");
+    return pokemons.length;
+  }, [pokemons]);
+
+  const QtdPokemons = QuantidadePokemons;
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h3>POKEMONS - QTD: {QtdPokemons}</h3>
+      <List pokemons={pokemons} />
+
+      <div>
+        <input
+          value={input}
+          onChange={(event) => setInput(event.target.value)}
+        />
+        <button onClick={() => setPokemons([...pokemons, input])}>
+          Adicionar novo pokemon
+        </button>
+      </div>
     </div>
   );
 }
